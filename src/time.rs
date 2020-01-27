@@ -1,7 +1,6 @@
 use chrono::prelude::*;
 use std::time::Duration;
 
-#[allow(dead_code)]
 #[derive(Debug)]
 struct RelativeTimeMagnitude {
     duration: Duration,
@@ -16,7 +15,6 @@ const WEEK_SECS: u64 = DAY_SECS * 7;
 const MONTH_SECS: u64 = DAY_SECS * 30;
 const YEAR_SECS: u64 = MONTH_SECS * 12;
 
-#[allow(dead_code)]
 const DEFAULT_MAGNITUDES: [RelativeTimeMagnitude; 17] = [
     // now
     RelativeTimeMagnitude {
