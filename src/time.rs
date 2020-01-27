@@ -138,8 +138,6 @@ pub fn format(then: DateTime<Utc>) -> String {
         }
     }
 
-    dbg!(now, diff, label, magnitude);
-
     let amt_str = (diff / magnitude.div_by).as_nanos().to_string();
     let replace_amt = magnitude.fmt.replace("{amt}", &amt_str);
     replace_amt.replace("{label}", label)
