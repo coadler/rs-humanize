@@ -14,6 +14,7 @@ const DAY_SECS: u64 = HOUR_SECS * 24;
 const WEEK_SECS: u64 = DAY_SECS * 7;
 const MONTH_SECS: u64 = DAY_SECS * 30;
 const YEAR_SECS: u64 = MONTH_SECS * 12;
+const LONG_TIME_SECS: u64 = YEAR_SECS * 37;
 
 const DEFAULT_MAGNITUDES: [RelativeTimeMagnitude; 17] = [
     // now
@@ -108,7 +109,7 @@ const DEFAULT_MAGNITUDES: [RelativeTimeMagnitude; 17] = [
     },
     // 10 years ago
     RelativeTimeMagnitude {
-        duration: Duration::from_secs(YEAR_SECS * 2),
+        duration: Duration::from_secs(LONG_TIME_SECS),
         fmt: "{amt} years {label}",
         div_by: Duration::from_secs(YEAR_SECS).as_nanos() as u32,
     },
