@@ -3,11 +3,13 @@ pub mod time;
 
 #[cfg(test)]
 mod tests {
-    use chrono::Utc;
+    use chrono::prelude::*;
 
     #[test]
     fn format_now() {
-        let fmted = super::time::format(Utc::now());
+        let d = Utc::now();
+        let fmted = super::time::format(d);
+        println!("{}, {}", fmted, d.to_string());
         assert_eq!("now", fmted);
     }
 }
