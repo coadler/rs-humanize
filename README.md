@@ -14,7 +14,7 @@ example, `12 seconds ago` or `3 days from now`.
 Code example:
 ```rust
 use rs-humanize::time;
-use chromo::Utc;
+use chrono::Utc;
 
 println!("{}", time::format(Utc::now()));
 println!("{}", time::format(Utc.ymd(2018, 2, 18).and_hms(8, 30, 0)));
