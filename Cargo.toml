@@ -1,6 +1,6 @@
 [package]
 name = "rs-humanize"
-version = "1.0.0"
+version = "1.0.1"
 authors = ["Colin Adler <colin@coder.com>"]
 edition = "2018"
 description = "Format data types into human readable strings"
