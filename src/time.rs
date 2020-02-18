@@ -154,184 +154,60 @@ mod tests {
     fn test_format_rel() {
         use chrono::Duration;
 
-        struct TimePair {
-            a: DateTime<Utc>,
-            b: DateTime<Utc>,
-            expected_str: &'static str,
-        }
+        struct TimeTest(DateTime<Utc>, &'static str);
 
         let now = Utc::now();
         let tests = vec![
             // singular second
-            TimePair {
-                a: now - Duration::seconds(1),
-                b: now,
-                expected_str: "1 second ago",
-            },
-            TimePair {
-                a: now + Duration::seconds(1),
-                b: now,
-                expected_str: "1 second from now",
-            },
+            TimeTest(now - Duration::seconds(1), "1 second ago"),
+            TimeTest(now + Duration::seconds(1), "1 second from now"),
             // multiple seconds
-            TimePair {
-                a: now - Duration::seconds(5),
-                b: now,
-                expected_str: "5 seconds ago",
-            },
-            TimePair {
-                a: now + Duration::seconds(5),
-                b: now,
-                expected_str: "5 seconds from now",
-            },
+            TimeTest(now - Duration::seconds(5), "5 seconds ago"),
+            TimeTest(now + Duration::seconds(5), "5 seconds from now"),
             // singular minute
-            TimePair {
-                a: now - Duration::minutes(1),
-                b: now,
-                expected_str: "1 minute ago",
-            },
-            TimePair {
-                a: now + Duration::minutes(1),
-                b: now,
-                expected_str: "1 minute from now",
-            },
+            TimeTest(now - Duration::minutes(1), "1 minute ago"),
+            TimeTest(now + Duration::minutes(1), "1 minute from now"),
             // multiple minutes
-            TimePair {
-                a: now - Duration::minutes(5),
-                b: now,
-                expected_str: "5 minutes ago",
-            },
-            TimePair {
-                a: now + Duration::minutes(5),
-                b: now,
-                expected_str: "5 minutes from now",
-            },
+            TimeTest(now - Duration::minutes(5), "5 minutes ago"),
+            TimeTest(now + Duration::minutes(5), "5 minutes from now"),
             // singular hour
-            TimePair {
-                a: now - Duration::hours(1),
-                b: now,
-                expected_str: "1 hour ago",
-            },
-            TimePair {
-                a: now + Duration::hours(1),
-                b: now,
-                expected_str: "1 hour from now",
-            },
+            TimeTest(now - Duration::hours(1), "1 hour ago"),
+            TimeTest(now + Duration::hours(1), "1 hour from now"),
             // multiple hours
-            TimePair {
-                a: now - Duration::hours(5),
-                b: now,
-                expected_str: "5 hours ago",
-            },
-            TimePair {
-                a: now + Duration::hours(5),
-                b: now,
-                expected_str: "5 hours from now",
-            },
+            TimeTest(now - Duration::hours(5), "5 hours ago"),
+            TimeTest(now + Duration::hours(5), "5 hours from now"),
             // singular day
-            TimePair {
-                a: now - Duration::days(1),
-                b: now,
-                expected_str: "1 day ago",
-            },
-            TimePair {
-                a: now + Duration::days(1),
-                b: now,
-                expected_str: "1 day from now",
-            },
+            TimeTest(now - Duration::days(1), "1 day ago"),
+            TimeTest(now + Duration::days(1), "1 day from now"),
             // multiple days
-            TimePair {
-                a: now - Duration::days(5),
-                b: now,
-                expected_str: "5 days ago",
-            },
-            TimePair {
-                a: now + Duration::days(5),
-                b: now,
-                expected_str: "5 days from now",
-            },
+            TimeTest(now - Duration::days(5), "5 days ago"),
+            TimeTest(now + Duration::days(5), "5 days from now"),
             // singular week
-            TimePair {
-                a: now - Duration::weeks(1),
-                b: now,
-                expected_str: "1 week ago",
-            },
-            TimePair {
-                a: now + Duration::weeks(1),
-                b: now,
-                expected_str: "1 week from now",
-            },
+            TimeTest(now - Duration::weeks(1), "1 week ago"),
+            TimeTest(now + Duration::weeks(1), "1 week from now"),
             // multiple weeks
-            TimePair {
-                a: now - Duration::weeks(3),
-                b: now,
-                expected_str: "3 weeks ago",
-            },
-            TimePair {
-                a: now + Duration::weeks(3),
-                b: now,
-                expected_str: "3 weeks from now",
-            },
+            TimeTest(now - Duration::weeks(3), "3 weeks ago"),
+            TimeTest(now + Duration::weeks(3), "3 weeks from now"),
             // singular month
-            TimePair {
-                a: now - Duration::days(30),
-                b: now,
-                expected_str: "1 month ago",
-            },
-            TimePair {
-                a: now + Duration::days(30),
-                b: now,
-                expected_str: "1 month from now",
-            },
+            TimeTest(now - Duration::days(30), "1 month ago"),
+            TimeTest(now + Duration::days(30), "1 month from now"),
             // multiple months
-            TimePair {
-                a: now - Duration::days(30 * 5),
-                b: now,
-                expected_str: "5 months ago",
-            },
-            TimePair {
-                a: now + Duration::days(30 * 5),
-                b: now,
-                expected_str: "5 months from now",
-            },
+            TimeTest(now - Duration::days(30 * 5), "5 months ago"),
+            TimeTest(now + Duration::days(30 * 5), "5 months from now"),
             // singular year
-            TimePair {
-                a: now - Duration::days(365),
-                b: now,
-                expected_str: "1 year ago",
-            },
-            TimePair {
-                a: now + Duration::days(365),
-                b: now,
-                expected_str: "1 year from now",
-            },
+            TimeTest(now - Duration::days(365), "1 year ago"),
+            TimeTest(now + Duration::days(365), "1 year from now"),
             // multiple years
-            TimePair {
-                a: now - Duration::days(365 * 5),
-                b: now,
-                expected_str: "5 years ago",
-            },
-            TimePair {
-                a: now + Duration::days(365 * 5),
-                b: now,
-                expected_str: "5 years from now",
-            },
+            TimeTest(now - Duration::days(365 * 5), "5 years ago"),
+            TimeTest(now + Duration::days(365 * 5), "5 years from now"),
             // long time
-            TimePair {
-                a: now - Duration::days(365 * 1000),
-                b: now,
-                expected_str: "a long while ago",
-            },
-            TimePair {
-                a: now + Duration::days(365 * 1000),
-                b: now,
-                expected_str: "a long while from now",
-            },
+            TimeTest(now - Duration::days(365 * 1000), "a long while ago"),
+            TimeTest(now + Duration::days(365 * 1000), "a long while from now"),
         ];
 
         for test in tests.iter() {
-            let fmted = format_rel(test.a, test.b, "ago", "from now");
-            assert_eq!(fmted, test.expected_str);
+            let fmted = format_rel(test.0, now, "ago", "from now");
+            assert_eq!(fmted, test.1);
         }
     }
 }
