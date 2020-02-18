@@ -1,6 +1,10 @@
 #[inline]
-pub fn ordinal<T: Into<i64>>(x: T) -> String {
-    let x: i64 = x.into();
+pub fn ordinal(x: i64) -> String {
+    ordinal_ref(&x)
+}
+
+#[inline]
+pub fn ordinal_ref(x: &i64) -> String {
     let mut suffix = "th";
     match x % 10 {
         1 => {
@@ -47,7 +51,7 @@ mod tests {
             OrdinalTest(ordinal(101), "101st"),
             OrdinalTest(ordinal(102), "102nd"),
             OrdinalTest(ordinal(103), "103rd"),
-            OrdinalTest(ordinal(104), "104th"),
+            OrdinalTest(ordinal(104.into()), "104th"),
         ];
 
         tests.iter().for_each(|test| assert_eq!(test.0, test.1));
@@ -61,6 +65,6 @@ mod tests {
         use rand::Rng;
         let n: u8 = rand::thread_rng().gen();
 
-        b.iter(|| ordinal(n))
+        b.iter(|| ordinal(n.into()))
     }
 }

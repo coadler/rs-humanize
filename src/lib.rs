@@ -3,4 +3,4 @@
 pub mod time;
 
 mod ordinal;
-pub use ordinal::ordinal;
+pub use ordinal::{ordinal, ordinal_ref};
