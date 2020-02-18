@@ -5,7 +5,7 @@ authors = ["Colin Adler <colin@coder.com>"]
 edition = "2018"
 description = "Format data types into human readable strings"
 license = "MIT"
-documentation = "https://github.com/coadler/rs-humanize"
+documentation = "https://docs.rs/rs-humanize"
 homepage = "https://github.com/coadler/rs-humanize"
 repository = "https://github.com/coadler/rs-humanize"
 
@@ -13,3 +13,7 @@ repository = "https://github.com/coadler/rs-humanize"
 
 [dependencies]
 chrono = "0.4"
+num = "0.2.1"
+
+[dev-dependencies]
+rand = "0.7.3"

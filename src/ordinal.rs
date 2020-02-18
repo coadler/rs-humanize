@@ -1,5 +1,6 @@
 #[inline]
-pub fn ordinal(x: usize) -> String {
+pub fn ordinal<T: Into<i64>>(x: T) -> String {
+    let x: i64 = x.into();
     let mut suffix = "th";
     match x % 10 {
         1 => {
@@ -49,8 +50,17 @@ mod tests {
             OrdinalTest(ordinal(104), "104th"),
         ];
 
-        for test in tests.iter() {
-            assert_eq!(test.0, test.1);
-        }
+        tests.iter().for_each(|test| assert_eq!(test.0, test.1));
+    }
+
+    extern crate test;
+    use test::Bencher;
+
+    #[bench]
+    fn bench_ordinal(b: &mut Bencher) {
+        use rand::Rng;
+        let n: u8 = rand::thread_rng().gen();
+
+        b.iter(|| ordinal(n))
     }
 }

@@ -210,4 +210,17 @@ mod tests {
             assert_eq!(fmted, test.1);
         }
     }
+
+    extern crate test;
+    use test::Bencher;
+
+    #[bench]
+    fn bench_format_rel(b: &mut Bencher) {
+        use chrono::Duration;
+
+        let now = Utc::now();
+        let then = now - Duration::days(30);
+
+        b.iter(|| format_rel(then, now, "ago", "from now"))
+    }
 }
