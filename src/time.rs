@@ -1,5 +1,7 @@
 use chrono::prelude::*;
+use std::collections::HashMap;
 use std::time::Duration;
+use strfmt::strfmt;
 
 #[derive(Debug)]
 struct RelativeTimeMagnitude {
@@ -121,11 +123,13 @@ const DEFAULT_MAGNITUDES: [RelativeTimeMagnitude; 17] = [
     },
 ];
 
+#[inline]
 pub fn format(then: DateTime<Utc>) -> String {
     let now = Utc::now();
     return format_rel(then, now, "ago", "from now");
 }
 
+#[inline]
 pub fn format_rel(a: DateTime<Utc>, b: DateTime<Utc>, a_label: &str, b_label: &str) -> String {
     let (diff, label) = if a > b {
         ((a - b).to_std().unwrap(), b_label)
@@ -142,8 +146,12 @@ pub fn format_rel(a: DateTime<Utc>, b: DateTime<Utc>, a_label: &str, b_label: &s
     }
 
     let amt_str = (diff.as_nanos() / magnitude.div_by.as_nanos()).to_string();
-    let replace_amt = magnitude.fmt.replace("{amt}", &amt_str);
-    replace_amt.replace("{label}", label)
+
+    let mut vars = HashMap::with_capacity(2);
+    vars.insert("amt".to_string(), amt_str);
+    vars.insert("label".to_string(), label.to_owned());
+
+    strfmt(magnitude.fmt, &vars).unwrap()
 }
 
 #[cfg(test)]

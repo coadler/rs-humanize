@@ -13,6 +13,8 @@ repository = "https://github.com/coadler/rs-humanize"
 
 [dependencies]
 chrono = "0.4"
+strfmt = "0.1"
+iota = "0.2"
 
 [dev-dependencies]
 rand = "0.7.3"
