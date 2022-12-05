@@ -13,7 +13,7 @@ example, `12 seconds ago` or `3 days from now`.
 
 Code example:
 ```rust
-use rs-humanize::time;
+use rs_humanize::time;
 use chrono::Utc;
 
 println!("{}", time::format(Utc::now()));
